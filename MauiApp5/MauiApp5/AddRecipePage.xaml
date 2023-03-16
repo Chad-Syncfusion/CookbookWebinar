@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiApp5.Models"
+             x:Class="MauiApp5.AddRecipePage"
+             xmlns:local="clr-namespace:MauiApp5.Helper"
+             x:DataType="models:AddRecipeModel">
+             
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,*,75">
+        
+            <ScrollView Grid.Row="0">
+            <VerticalStackLayout  Padding="10" 
+                                  Spacing="5"
+                                  VerticalOptions="StartAndExpand">
+
+                <Label Text="Name" />
+                <Entry Text="{Binding Name}" />
+                <Label Text="Description" />
+                <Entry Text="{Binding Description}" />
+                <Label Text="Category" />
+                <Picker ItemsSource="{Binding Source={x:Static local:CategoryConverter.Categories}}" 
+                        Title="Select category" 
+                        ItemDisplayBinding="{Binding CatName}" SelectedItem="{Binding Category}"/>
+                
+                <Button Text="Save" Command="{Binding SaveCommand}"/>
+
+                </VerticalStackLayout>
+            </ScrollView> 
+            
+            <Frame BorderColor="Gray" Grid.Row="1"
+                   CornerRadius="10">
+                 <Image  Rotation="90" Source="{Binding Path}"></Image>
+                 </Frame>
+                 <Button Grid.Row="2"
+                         x:Name="CameraBtn"
+                         Text="Open Camera"
+                         Command="{Binding TakePhotoCommand }"
+                         HorizontalOptions="Center" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sList="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:ListData="clr-namespace:Syncfusion.Maui.DataSource;assembly=Syncfusion.Maui.DataSource"
+             xmlns:models="clr-namespace:MauiApp5.Models"
+             xmlns:local="clr-namespace:MauiApp5.Helper"
+             x:Class="MauiApp5.MainPage"
+             x:DataType="models:MainPageModel">
+    <ContentPage.Resources>
+        <local:CategoryConverter x:Key="CategoryConverter"/>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="1,*,75,75,75">
+        <Frame Padding="0" BackgroundColor="#EAEAEA" CornerRadius="0" HasShadow="False" Grid.Row="1" >
+            <sList:SfListView x:Name="RecipeList"  SelectionChangedCommand="{Binding ItemTappedCommand}" 
+                              SelectionChangedCommandParameter="{Binding SelectedItem,Source={x:Reference RecipeList}}"
+                              ItemsSource="{Binding Recipes}"   AllowGroupExpandCollapse="True"
+                              SelectionBackground="Lavender">
+                <!--<sList:SfListView.GroupHeaderTemplate  >
+                    <DataTemplate>
+                        <Label Grid.Row="1" Text="{Binding Key, Converter={StaticResource CategoryConverter}}"></Label>
+                    </DataTemplate>
+                </sList:SfListView.GroupHeaderTemplate>-->
+                <sList:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="Black" 
+                                BackgroundColor="Transparent"
+                                StrokeThickness="2" 
+                                Padding="2,2"
+                                HorizontalOptions="Fill">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="10,10,0,0"></RoundRectangle></Border.StrokeShape>
+                        <StackLayout >
+                            <Label  Text="{Binding Name}" FontSize="16" FontFamily="Roboto-Medium" TextColor="#000000"
+                                    HorizontalOptions="FillAndExpand" 
+                                    CharacterSpacing="0.15" VerticalOptions="Center" VerticalTextAlignment="Center" Margin="5,0,0,0"></Label>
+
+                            <Label Text="{Binding Description}" FontSize="16" FontFamily="Roboto-Medium" TextColor="#000000"
+                                   MaxLines="3" HorizontalOptions="FillAndExpand" 
+                                   CharacterSpacing="0.15" VerticalOptions="Center" VerticalTextAlignment="Center" Margin="20,0,0,0"></Label>
+                          </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </sList:SfListView.ItemTemplate>
+            </sList:SfListView>        
+        </Frame>
+        
+        <Button Grid.Row="2" FontSize="25" FontFamily="Roboto-Medium" 
+                CharacterSpacing="0.15" VerticalOptions="Center" BorderColor="Black"
+                Command="{Binding OpenRecipeCommand}"
+                Text="Open" HeightRequest="90" 
+                Margin="10"/>
+        <Grid Grid.Row="3" ColumnDefinitions="0.5*,0.5*">
+        <Button Grid.Column="0" FontSize="25" FontFamily="Roboto-Medium" 
+                CharacterSpacing="0.15" VerticalOptions="Center" 
+                Command="{Binding AddItemCommand}"
+                Text="Add" 
+                Margin="5"/>
+        <Button Grid.Column="1" FontSize="25" FontFamily="Roboto-Medium" 
+            CharacterSpacing="0.15" VerticalOptions="Center" 
+            Command="{Binding EditItemCommand}"
+            Text="Edit" 
+            Margin="5"/>
+        </Grid>
+
+    </Grid>
+    
+
+</ContentPage>
